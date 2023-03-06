@@ -1,8 +1,19 @@
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from 'react-router-dom'
+import Home from './components/Home'
+import Pdf from './components/Pdf'
+
 function App (): JSX.Element {
   return (
-     <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+   <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/pdf" element={<Pdf />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
