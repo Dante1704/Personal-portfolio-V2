@@ -1,6 +1,12 @@
-function Header (): JSX.Element {
+import NavBar from './NavBar'
+import Hero from './Hero'
+
+const Header = (): JSX.Element => {
   return (
-    <div>Header</div>
+    <header className="min-h-[85vh] bg-[#e6e7ff]">
+        <NavBar/>
+        <Hero/>
+    </header>
   )
 }
 
