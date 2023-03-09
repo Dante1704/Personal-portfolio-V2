@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import HTML from '../images/tech_stack_icons/html.png'
 import CSS from '../images/tech_stack_icons/css-3.png'

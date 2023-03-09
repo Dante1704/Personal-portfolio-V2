@@ -1,8 +1,10 @@
+import resume from '../docs/Dante-Kaddarian-Resume.pdf'
+
 const Pdf = (): JSX.Element => {
   return (
     <div className='min-h-[85vh] w-full'>
         <object
-        data={require('../docs/Dante-Kaddarian-Resume.pdf')}
+        data={resume}
         type="application/pdf"
         className='h-[100vh] w-full'
         >
