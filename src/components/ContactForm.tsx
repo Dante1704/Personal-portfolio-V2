@@ -1,12 +1,41 @@
-import { useState, useRef, useEffect } from 'react'
+import { /* useState, */ useRef, useEffect, useReducer } from 'react'
 import { sendContactEmail } from '../services'
+import { type InputState } from '../types/index'
+
+const INITIAL_STATE = {
+  from_name: '',
+  from_email: '',
+  message: ''
+}
+
+type FormReducerAction = {
+  type: 'change_value'
+  payload: {
+    inputName: string
+    inputValue: string
+  }
+} | {
+  type: 'clear_state'
+}
+
+const formReducer = (state: InputState, action: FormReducerAction): InputState => {
+  switch (action.type) {
+    case 'change_value':
+    { const { inputName, inputValue } = action.payload
+      return {
+        ...state,
+        [inputName]: [inputValue]
+      }
+    }
+    case 'clear_state':
+    { return INITIAL_STATE }
+  }
+}
 
 const ContactForm = (): JSX.Element => {
-  const [input, setInput] = useState({
-    from_name: '',
-    from_email: '',
-    message: ''
-  })
+  // const [input, setInput] = useState<InputState>(INITIAL_STATE)
+
+  const [input, dispatch] = useReducer(formReducer, INITIAL_STATE)
 
   const nameRef = useRef<HTMLInputElement>(null)
   // cuando se monta el componente ya aparece listo el cursor sobre el primer input de name para empezar a escribir.
@@ -17,16 +46,22 @@ const ContactForm = (): JSX.Element => {
   const handleValue = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const property = e.target.name
     const value = e.target.value
-    setInput({
-      ...input, [property]: value
+    dispatch({
+      type: 'change_value',
+      payload: {
+        inputName: property,
+        inputValue: value
+      }
     })
+    /* setInput({
+      ...input, [property]: value
+    }) */
   }
 
-  const clickCleanHandler = (): void => {
-    setInput({
-      from_name: '',
-      from_email: '',
-      message: ''
+  const clickCleanHandler = (/* setInput: React.Dispatch<React.SetStateAction<InputState>> */): void => {
+    /* setInput(INITIAL_STATE) */
+    dispatch({
+      type: 'clear_state'
     })
   }
 
@@ -34,7 +69,7 @@ const ContactForm = (): JSX.Element => {
     e.preventDefault()
     const formContact: HTMLFormElement = e.target
     sendContactEmail(formContact)
-    clickCleanHandler()
+    clickCleanHandler(/* setInput */)
   }
 
   return (
