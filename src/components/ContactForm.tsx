@@ -1,44 +1,11 @@
-import { /* useState, */ useRef, useEffect, useReducer } from 'react'
+import { useRef, useEffect } from 'react'
+import useForm from '../hooks/useForm' // custom hook
 import { sendContactEmail } from '../services'
-import { type InputState } from '../types/index'
-
-const INITIAL_STATE = {
-  from_name: '',
-  from_email: '',
-  message: ''
-}
-
-type FormReducerAction = {
-  type: 'change_value'
-  payload: {
-    inputName: string
-    inputValue: string
-  }
-} | {
-  type: 'clear_state'
-}
-
-const formReducer = (state: InputState, action: FormReducerAction): InputState => {
-  switch (action.type) {
-    case 'change_value':
-    { const { inputName, inputValue } = action.payload
-      return {
-        ...state,
-        [inputName]: [inputValue]
-      }
-    }
-    case 'clear_state':
-    { return INITIAL_STATE }
-  }
-}
 
 const ContactForm = (): JSX.Element => {
-  // const [input, setInput] = useState<InputState>(INITIAL_STATE)
-
-  const [input, dispatch] = useReducer(formReducer, INITIAL_STATE)
+  const [input, dispatch] = useForm()
 
   const nameRef = useRef<HTMLInputElement>(null)
-  // cuando se monta el componente ya aparece listo el cursor sobre el primer input de name para empezar a escribir.
   useEffect(() => {
     nameRef.current?.select()
   }, [])
@@ -53,13 +20,9 @@ const ContactForm = (): JSX.Element => {
         inputValue: value
       }
     })
-    /* setInput({
-      ...input, [property]: value
-    }) */
   }
 
-  const clickCleanHandler = (/* setInput: React.Dispatch<React.SetStateAction<InputState>> */): void => {
-    /* setInput(INITIAL_STATE) */
+  const clickCleanHandler = (): void => {
     dispatch({
       type: 'clear_state'
     })
@@ -69,7 +32,7 @@ const ContactForm = (): JSX.Element => {
     e.preventDefault()
     const formContact: HTMLFormElement = e.target
     sendContactEmail(formContact)
-    clickCleanHandler(/* setInput */)
+    clickCleanHandler()
   }
 
   return (
