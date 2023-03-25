@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import profile from '../images/Profile-Picture.jpeg'
+import profile from '../images/Profile-Picture-1.jpg'
 import placeholder from '../images/placeholder.png'
 import '../index.css'
 

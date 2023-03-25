@@ -86,7 +86,7 @@ const Projects = (): JSX.Element => {
             </div>
           </div>
           <div className='max-w-sm mx-auto mx-auto lg:mx-0 lg:mr-auto lg:w-8/12'>
-            <Link to="http://159.223.195.60:3000/" className="btn btn-lg bg-[#eee1ff] text-[#0c0019] hover:bg-[#e6f3ff] mt-14 min-[321px]:mr-4" target="_blank">
+            <Link to="https://tiendanuestra.vercel.app/" className="btn btn-lg bg-[#eee1ff] text-[#0c0019] hover:bg-[#e6f3ff] mt-14 min-[321px]:mr-4" target="_blank">
             Watch it Live
             </Link>
             <Link to="https://github.com/Dante1704/Henry-s-Final-Project" className="btn btn-lg bg-[#eee1ff] text-[#0c0019] hover:bg-[#e6f3ff] min-[321px]:ml-4" target="_blank">
